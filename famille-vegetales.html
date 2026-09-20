@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Familles végétales — Flore et Faune du Var</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#2e5339">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="icons/icon-192.png">
+</head>
+<body>
+<header class="site-header">
+  <div class="title-row">
+    <span class="leaf">🌿</span>
+    <h1>Flore et Faune du Var</h1>
+  </div>
+  <nav class="site-nav">
+    <a href="index.html">Accueil</a>
+    <a href="flore.html">Flore</a>
+    <a href="faune.html">Faune</a>
+    <a href="famille-vegetales.html" class="active">Familles végétales</a>
+  </nav>
+</header>
+
+<main>
+  <a class="back-link" href="index.html">&larr; Accueil</a>
+  <div class="fiche-header">
+    <span class="cat">Classification</span>
+    <h1>Familles végétales</h1>
+  </div>
+  <div class="fiche-placeholder">
+    <p><em>Page à compléter</em> — sur le site d'origine, cette section classe les
+    espèces de la flore par famille botanique (ex. Ericacées, Fabacées, Astéracées…).
+    Le contenu détaillé reste à reprendre.</p>
+  </div>
+</main>
+
+<footer class="site-footer">Flore et Faune du Var — version PWA (structure)</footer>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('sw.js');
+  });
+}
+</script>
+</body>
+</html>

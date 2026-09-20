@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fiche — Flore et Faune du Var</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#2e5339">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="icons/icon-192.png">
+</head>
+<body>
+<header class="site-header">
+  <div class="title-row">
+    <span class="leaf">🌿</span>
+    <h1>Flore et Faune du Var</h1>
+  </div>
+  <nav class="site-nav">
+    <a href="index.html">Accueil</a>
+    <a href="flore.html" id="nav-flore">Flore</a>
+    <a href="faune.html" id="nav-faune">Faune</a>
+    <a href="famille-vegetales.html">Familles végétales</a>
+  </nav>
+</header>
+
+<main>
+  <a class="back-link" id="back-link" href="flore.html">&larr; Retour à la liste</a>
+
+  <div class="fiche-header">
+    <span class="cat" id="cat-label">Fiche</span>
+    <h1 id="fiche-title">Chargement…</h1>
+  </div>
+
+  <div class="fiche-placeholder">
+    <p><em>Contenu à compléter</em> — cette fiche reprend uniquement la structure et le
+    nom de l'espèce depuis le site d'origine. Description, caractéristiques et
+    photo restent à ajouter ici.</p>
+  </div>
+</main>
+
+<footer class="site-footer">Flore et Faune du Var — version PWA (structure)</footer>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+const type = params.get('type') === 'faune' ? 'faune' : 'flore';
+const slug = params.get('slug') || '';
+
+document.getElementById('back-link').href = type + '.html';
+document.getElementById('cat-label').textContent = type === 'faune' ? 'Faune' : 'Flore';
+document.getElementById('nav-' + type).classList.add('active');
+
+fetch('data/' + type + '.json')
+  .then(r => r.json())
+  .then(data => {
+    const found = data.find(s => s.slug === slug);
+    document.getElementById('fiche-title').textContent = found ? found.name : 'Fiche introuvable';
+    document.title = (found ? found.name : 'Fiche') + ' — Flore et Faune du Var';
+  });
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('sw.js');
+  });
+}
+</script>
+</body>
+</html>

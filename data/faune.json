@@ -1,0 +1,386 @@
+[
+  {
+    "name": "Agrion de Van der Linden (Erythromma lindenii)",
+    "slug": "agrion-de-van-der-linden-erythromma-lindenii"
+  },
+  {
+    "name": "Aigle royal (Aquila chrysaetos)",
+    "slug": "aigle-royal-aquila-chrysaetos"
+  },
+  {
+    "name": "Aigrette garzette (Egretta garzetta)",
+    "slug": "aigrette-garzette-egretta-garzetta"
+  },
+  {
+    "name": "Anodonte (Anodonta grandis)",
+    "slug": "anodonte-anodonta-grandis"
+  },
+  {
+    "name": "Arcyptère provençale (Arcyptera kheili)",
+    "slug": "arcyptere-provencale-arcyptera-kheili"
+  },
+  {
+    "name": "Ascalaphe soufré (Libelloides coccajus)",
+    "slug": "ascalaphe-soufre-libelloides-coccajus"
+  },
+  {
+    "name": "Azuré porte-queue (Lampides boeticus)",
+    "slug": "azuré-porte-queue-lampides-boeticus"
+  },
+  {
+    "name": "Barbitiste des bois (Barbitistes serricauda)",
+    "slug": "barbitiste-des-bois-barbitistes-serricauda"
+  },
+  {
+    "name": "Bergeronnette des ruisseaux (Motacilla cinerea)",
+    "slug": "bergeronnette-des-ruisseaux-motacilla-cinerea"
+  },
+  {
+    "name": "Bergeronnette grise (Motacilla alba)",
+    "slug": "bergeronnette-grise-motacilla-alba"
+  },
+  {
+    "name": "Bombyx disparate (Lymantria dispar)",
+    "slug": "bombyx-disparate-lymantria-dispar"
+  },
+  {
+    "name": "Bombyx du chêne (Lasiocampa quercus)",
+    "slug": "bombyx-du-chêne-lasiocampa-quercus"
+  },
+  {
+    "name": "Bourdon (Bombus sp.)",
+    "slug": "bourdon-bombus-sp"
+  },
+  {
+    "name": "Calosome doré (Calosoma sycophanta)",
+    "slug": "calosome-doré-calosoma-sycophanta"
+  },
+  {
+    "name": "Capricorne (Cerambyx cerdo)",
+    "slug": "capricorne-cerambyx-cerdo"
+  },
+  {
+    "name": "Chrysomèle de la viorne (Pyrrhalta viburni)",
+    "slug": "chrysomèle-de-la-viorne-pyrrhalta-viburni"
+  },
+  {
+    "name": "Cigale commune (Lyristes plebejus)",
+    "slug": "cigale-commune-lyristes-plebejus"
+  },
+  {
+    "name": "Cistude (Emys orbicularis)",
+    "slug": "cistude-emys-orbicularis"
+  },
+  {
+    "name": "Citron de Provence (Gonepteryx cleopatra)",
+    "slug": "citron-de-provence-gonepteryx-cleopatra"
+  },
+  {
+    "name": "Coccinelle asiatique (Harmonia axyridis)",
+    "slug": "coccinelle-asiatique-harmonia-axyridis"
+  },
+  {
+    "name": "Cordulégastre annelé (Cordulegaster boltonii)",
+    "slug": "cordulegastre-annele-cordulegaster-boltonii"
+  },
+  {
+    "name": "Couleuvre vipérine (Natrix maura)",
+    "slug": "couleuvre-vipérine-natrix-maura"
+  },
+  {
+    "name": "Crache-sang (Timarcha tenebricosa)",
+    "slug": "crache-sang-timarcha-tenebricosa"
+  },
+  {
+    "name": "Criquet bleu (Oedipoda caerulescens)",
+    "slug": "criquet-bleu-oedipoda-caerulescens"
+  },
+  {
+    "name": "Criquet égyptien (Anacridium aegyptium)",
+    "slug": "criquet-egyptien-anacridium-aegyptium"
+  },
+  {
+    "name": "Cucullie du Bouillon Blanc (Shargacucullia verbasci)",
+    "slug": "cucullie-du-bouillon-blanc-shargacucullia-verbasci"
+  },
+  {
+    "name": "Cynips des galles (Cynips quercusfolii)",
+    "slug": "cynips-des-galles-cynips-quercusfolii"
+  },
+  {
+    "name": "Cétoine dorée (Cetonia aurata)",
+    "slug": "cétoine-dorée-cetonia-aurata"
+  },
+  {
+    "name": "Cétoine dorée (Cetonia aurata)",
+    "slug": "cetoine-doree-cetonia-aurata"
+  },
+  {
+    "name": "Cétoine grise (Oxythyrea funesta)",
+    "slug": "cétoine-grise-oxythyrea-funesta"
+  },
+  {
+    "name": "Demi-deuil (Melanargia galathea)",
+    "slug": "demi-deuil-melanargia-galathea"
+  },
+  {
+    "name": "Demoiselle",
+    "slug": "demoiselle"
+  },
+  {
+    "name": "Dytique (Dytiscus)",
+    "slug": "dytique-dytiscus"
+  },
+  {
+    "name": "Ecrevisse de Californie (Pacifastacus leniusculus)",
+    "slug": "ecrevisse-de-californie-pacifastacus-leniusculus"
+  },
+  {
+    "name": "Empuse commune (Empusa pennata)",
+    "slug": "empuse-commune-empusa-pennata"
+  },
+  {
+    "name": "Epeire de velours (Agalenatea redii)",
+    "slug": "epeire-de-velours-agalenatea-redii"
+  },
+  {
+    "name": "Epervier (Accipiter nisus)",
+    "slug": "epervier-accipiter-nisus"
+  },
+  {
+    "name": "Ephippigère des vignes (Ephippiger ephippiger)",
+    "slug": "ephippigère-des-vignes-ephippiger-ephippiger"
+  },
+  {
+    "name": "Fauvette à tête noire (Sylvia atracapilla)",
+    "slug": "fauvette-à-tête-noire-sylvia-atracapilla"
+  },
+  {
+    "name": "Flambé (Iphicides podalirius)",
+    "slug": "flambé-iphicides-podalirius"
+  },
+  {
+    "name": "Flambé en vol",
+    "slug": "flambe-en-vol"
+  },
+  {
+    "name": "Foulque macroule (Fulica atra)",
+    "slug": "foulque-macroule-fulica-atra"
+  },
+  {
+    "name": "Gallinule poule d'eau (Gallinula chloropus)",
+    "slug": "gallinule-poule-deau-gallinula-chloropus"
+  },
+  {
+    "name": "Galéruque de l'orme (Xanthogaleruca luteola)",
+    "slug": "galéruque-de-lorme-xanthogaleruca-luteola"
+  },
+  {
+    "name": "Gazé (Aporia crataegi)",
+    "slug": "gaze-aporia-crataegi"
+  },
+  {
+    "name": "Geai des chênes (Garrulus glandarius)",
+    "slug": "geai-des-chênes-garrulus-glandarius"
+  },
+  {
+    "name": "Gerris (Gerris sp.)",
+    "slug": "gerris-gerris-sp"
+  },
+  {
+    "name": "Grand Cormoran (Phalacrocorax carbo=",
+    "slug": "grand-cormoran-phalacrocorax-carbo"
+  },
+  {
+    "name": "Grande Aigrette (Ardea alba)",
+    "slug": "grande-aigrette-ardea-alba"
+  },
+  {
+    "name": "Graphosome italien (Graphosoma italicum)",
+    "slug": "graphosome-italien-graphosoma-italicum"
+  },
+  {
+    "name": "Graphosome ponctué (Graphosoma semipunctatum)",
+    "slug": "graphosome-ponctué-graphosoma-semipunctatum"
+  },
+  {
+    "name": "Grenouille rieuse (Pelophylax ridibundus)",
+    "slug": "grenouille-rieuse-pelophylax-ridibundus"
+  },
+  {
+    "name": "Grue cendrée (Grus grus)",
+    "slug": "grue-cendrée-grus-grus"
+  },
+  {
+    "name": "Guêpe maçonne (Odynerus sp.)",
+    "slug": "guepe-maconne-odynerus-sp"
+  },
+  {
+    "name": "Hirondelle rustique (Hirundo rustica)",
+    "slug": "hirondelle-rustique-hirundo-rustica"
+  },
+  {
+    "name": "Livrée des arbres (Malacosoma neustria)",
+    "slug": "livrée-des-arbres-malacosoma-neustria"
+  },
+  {
+    "name": "Lucane cerf-volant (Lucanus cervus)",
+    "slug": "lucane-cerf-volant-lucanus-cervus"
+  },
+  {
+    "name": "Magicienne dentelée (Saga pedo)",
+    "slug": "magicienne-dentelée-saga-pedo"
+  },
+  {
+    "name": "Mante religieuse (Mantis religiosa)",
+    "slug": "mante-religieuse-mantis-religiosa"
+  },
+  {
+    "name": "Morime (Morimus funereus)",
+    "slug": "morime-morimus-funereus"
+  },
+  {
+    "name": "Mouette rieuse (Chroicocephalus ridibundus)",
+    "slug": "mouette-rieuse-chroicocephalus-ridibundus"
+  },
+  {
+    "name": "Myrtil (Maniola jurtina)",
+    "slug": "myrtil-maniola-jurtina"
+  },
+  {
+    "name": "Mélitée des mélampyres (Melitaea athalia)",
+    "slug": "mélitée-des-mélampyres-melitaea-athalia"
+  },
+  {
+    "name": "Méloé violet (Meloe violaceus)",
+    "slug": "méloé-violet-meloe-violaceus"
+  },
+  {
+    "name": "Oedémère noble (Oedemera nobilis)",
+    "slug": "oedémère-noble-oedemera-nobilis"
+  },
+  {
+    "name": "Onychogomphe à pinces (Onychogomphus forcipatus)",
+    "slug": "onychogomphe-à-pinces-onychogomphus-forcipatus"
+  },
+  {
+    "name": "Petit paon de nuit (Saturnia pavonia)",
+    "slug": "petit-paon-de-nuit-saturnia-pavonia"
+  },
+  {
+    "name": "Phanéroptère liliacé (Tylopsis lilifolia)",
+    "slug": "phanéroptère-liliacé-tylopsis-lilifolia"
+  },
+  {
+    "name": "Pholidoptère (Pholidoptera sp.)",
+    "slug": "pholidoptere-pholidoptera-sp"
+  },
+  {
+    "name": "Proserpine (Zerynthia rumina)",
+    "slug": "proserpine-zerynthia-rumina"
+  },
+  {
+    "name": "Psammodrome d'Edwards (Psammodromus edwardsianus)",
+    "slug": "psammodrome-d-edwards-psammodromus-edwardsianus"
+  },
+  {
+    "name": "Pélodyte ponctué (Pelodytes punctatus)",
+    "slug": "pelodyte-ponctue-pelodytes-punctatus"
+  },
+  {
+    "name": "Ragondin (Myocastor coypus)",
+    "slug": "ragondin-myocastor-coypus"
+  },
+  {
+    "name": "Raphidie (Raphidia)",
+    "slug": "raphidie-raphidia"
+  },
+  {
+    "name": "Réduve à pattes rouges (Rhinocoris erythropus)",
+    "slug": "réduve-à-pattes-rouges-rhinocoris-erythropus"
+  },
+  {
+    "name": "Saltique de Sloane (Philaeus chrysops)",
+    "slug": "saltique-de-sloane-philaeus-chrysops"
+  },
+  {
+    "name": "Scarabée rhinocéros (Oryctes nasicornis)",
+    "slug": "scarabée-rhinocéros-oryctes-nasicornis"
+  },
+  {
+    "name": "Scolopendre annelée (Scolopendra cingulata)",
+    "slug": "scolopendre-annelee-scolopendra-cingulata"
+  },
+  {
+    "name": "Segestria",
+    "slug": "segestria"
+  },
+  {
+    "name": "Silene (Brintesia circe)",
+    "slug": "silene-brintesia-circe"
+  },
+  {
+    "name": "Spectre (Apopestes spectrum)",
+    "slug": "spectre-apopestes-spectrum"
+  },
+  {
+    "name": "Sphinx de l'euphorbe (Hiles euphorbiae)",
+    "slug": "sphinx-de-leuphorbe-hiles-euphorbiae"
+  },
+  {
+    "name": "Sylvain azuré (Limenitis reducta)",
+    "slug": "sylvain-azuré-limenitis-reducta"
+  },
+  {
+    "name": "Sylvandre (Hipparchia fagi)",
+    "slug": "sylvandre-hipparchia-fagi"
+  },
+  {
+    "name": "Tabac d'Espagne (Argynnis paphia)",
+    "slug": "tabac-despagne-argynnis-paphia"
+  },
+  {
+    "name": "Tarente de Maurétanie (Tarentola mauritanica)",
+    "slug": "tarente-de-maurétanie-tarentola-mauritanica"
+  },
+  {
+    "name": "Thomise globuleuse (Synema globulosum)",
+    "slug": "thomise-globuleuse-synema-globulosum"
+  },
+  {
+    "name": "Tortue d'Hermann (Testudo hermanni)",
+    "slug": "tortue-dhermann-testudo-hermanni"
+  },
+  {
+    "name": "Tourterelle turque (Streptopelia decaocto)",
+    "slug": "tourterelle-turque-streptopelia-decaocto"
+  },
+  {
+    "name": "Truxale méditerranéenne (Acrida ungarica)",
+    "slug": "truxale-mediterraneenne-acrida-ungarica"
+  },
+  {
+    "name": "Usia (Usia ?aenea)",
+    "slug": "usia-usia-aenea"
+  },
+  {
+    "name": "Xylocope (Xylocopa violacea)",
+    "slug": "xylocope-xylocopa-violacea"
+  },
+  {
+    "name": "Xysticus sp.",
+    "slug": "x"
+  },
+  {
+    "name": "Zeuzère du poirier (Zeuzera pyrina)",
+    "slug": "zeuzère-du-poirier-zeuzera-pyrina"
+  },
+  {
+    "name": "Zygène (Zygaena sp.)",
+    "slug": "zygene-zygaena-sp"
+  },
+  {
+    "name": "Zygène de la filipendule (Zygaena filipendulae)",
+    "slug": "zygène-de-la-filipendule-zygaena-filipendulae"
+  }
+]

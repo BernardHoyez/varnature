@@ -1,0 +1,14 @@
+{
+  "name": "Flore et Faune du Var",
+  "short_name": "VarNature",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#fbfaf7",
+  "theme_color": "#2e5339",
+  "description": "Inventaire naturaliste du Var : flore, faune et familles végétales.",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

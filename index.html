@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Flore et Faune du Var</title>
+<meta name="description" content="Inventaire naturaliste du Var : flore, faune et familles végétales.">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#2e5339">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+</head>
+<body>
+<header class="site-header">
+  <div class="title-row">
+    <span class="leaf">🌿</span>
+    <h1>Flore et Faune du Var</h1>
+  </div>
+  <nav class="site-nav">
+    <a href="index.html" class="active">Accueil</a>
+    <a href="flore.html">Flore</a>
+    <a href="faune.html">Faune</a>
+    <a href="famille-vegetales.html">Familles végétales</a>
+  </nav>
+</header>
+
+<main>
+  <p class="intro">
+    Inventaire naturaliste du Var — repris ici sous forme de PWA à partir du site
+    Google Sites original. Cette version reprend la structure et la liste des
+    fiches (flore, faune, familles végétales) ; le contenu détaillé de chaque
+    fiche reste à compléter.
+  </p>
+
+  <div class="home-cards">
+    <a class="home-card" href="flore.html">
+      <span class="emoji">🌸</span>
+      <h2>Flore</h2>
+      <p id="flore-count">…</p>
+    </a>
+    <a class="home-card" href="faune.html">
+      <span class="emoji">🦋</span>
+      <h2>Faune</h2>
+      <p id="faune-count">…</p>
+    </a>
+    <a class="home-card" href="famille-vegetales.html">
+      <span class="emoji">🌳</span>
+      <h2>Familles végétales</h2>
+      <p>Classification par famille</p>
+    </a>
+  </div>
+</main>
+
+<footer class="site-footer">Flore et Faune du Var — version PWA (structure)</footer>
+
+<script>
+Promise.all([
+  fetch('data/flore.json').then(r => r.json()).catch(() => []),
+  fetch('data/faune.json').then(r => r.json()).catch(() => [])
+]).then(([flore, faune]) => {
+  document.getElementById('flore-count').textContent = flore.length + ' fiches';
+  document.getElementById('faune-count').textContent = faune.length + ' fiches';
+});
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('sw.js');
+  });
+}
+</script>
+</body>
+</html>
