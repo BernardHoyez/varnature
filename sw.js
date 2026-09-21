@@ -1,4 +1,4 @@
-const CACHE_NAME = 'varnature-cache-v1';
+const CACHE_NAME = 'varnature-cache-v4';
 const PRECACHE_ASSETS = [
   './',
   './index.html',
@@ -10,6 +10,7 @@ const PRECACHE_ASSETS = [
   './manifest.json',
   './data/flore.json',
   './data/faune.json',
+  './photos/_index.json',
   './icons/icon-192.png',
   './icons/icon-512.png'
 ];

@@ -35,6 +35,7 @@
 
 <script>
 let allSpecies = [];
+let withPhoto = new Set();
 
 function render(filter) {
   const list = document.getElementById('list');
@@ -52,18 +53,20 @@ function render(filter) {
     const li = document.createElement('li');
     const a = document.createElement('a');
     a.href = 'fiche.html?type=flore&slug=' + encodeURIComponent(s.slug);
-    a.textContent = s.name;
+    a.textContent = (withPhoto.has(s.slug) ? '📷 ' : '') + s.name;
     li.appendChild(a);
     list.appendChild(li);
   });
 }
 
-fetch('data/flore.json')
-  .then(r => r.json())
-  .then(data => {
-    allSpecies = data;
-    render('');
-  });
+Promise.all([
+  fetch('data/flore.json').then(r => r.json()),
+  fetch('photos/_index.json').then(r => r.json()).catch(() => [])
+]).then(([data, photoSlugs]) => {
+  allSpecies = data;
+  withPhoto = new Set(photoSlugs);
+  render('');
+});
 
 document.getElementById('search').addEventListener('input', e => render(e.target.value));
 

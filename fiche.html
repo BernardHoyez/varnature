@@ -31,10 +31,12 @@
     <h1 id="fiche-title">Chargement…</h1>
   </div>
 
+  <img id="fiche-photo" class="fiche-photo" style="display:none;" alt="">
+
   <div class="fiche-placeholder">
-    <p><em>Contenu à compléter</em> — cette fiche reprend uniquement la structure et le
-    nom de l'espèce depuis le site d'origine. Description, caractéristiques et
-    photo restent à ajouter ici.</p>
+    <p><em>Contenu à compléter</em> — cette fiche reprend la structure et le nom de
+    l'espèce depuis le site d'origine (et la photo quand elle a déjà été récupérée).
+    La description détaillée reste à ajouter ici.</p>
   </div>
 </main>
 
@@ -56,6 +58,19 @@ fetch('data/' + type + '.json')
     document.getElementById('fiche-title').textContent = found ? found.name : 'Fiche introuvable';
     document.title = (found ? found.name : 'Fiche') + ' — Flore et Faune du Var';
   });
+
+const photoEl = document.getElementById('fiche-photo');
+const photoUrl = 'photos/' + slug + '.jpg';
+const testImg = new Image();
+testImg.onload = () => {
+  photoEl.src = photoUrl;
+  photoEl.alt = slug;
+  photoEl.style.display = 'block';
+};
+testImg.onerror = () => {
+  photoEl.style.display = 'none';
+};
+testImg.src = photoUrl;
 
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
