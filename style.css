@@ -201,6 +201,38 @@ ul.species-list li a:hover {
   display: block;
 }
 
+.commentaire {
+  background: #fff;
+  border: 1px solid var(--bordure);
+  border-left: 4px solid var(--vert);
+  border-radius: 10px;
+  padding: 16px 18px 14px;
+  margin-bottom: 16px;
+}
+
+.commentaire h2 {
+  margin: 0 0 8px;
+  font-family: system-ui, sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--vert);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.commentaire-texte {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.65;
+}
+
+.commentaire-note {
+  margin: 10px 0 0;
+  font-family: system-ui, sans-serif;
+  font-size: 0.78rem;
+  color: #7c847a;
+}
+
 .fiche-placeholder {
   background: #fff;
   border: 1px dashed var(--bordure);

@@ -33,7 +33,13 @@
 
   <img id="fiche-photo" class="fiche-photo" style="display:none;" alt="">
 
-  <div class="fiche-placeholder">
+  <section class="commentaire" id="commentaire" style="display:none;">
+    <h2>Commentaire</h2>
+    <p class="commentaire-texte" id="commentaire-texte"></p>
+    <p class="commentaire-note" id="commentaire-note"></p>
+  </section>
+
+  <div class="fiche-placeholder" id="fiche-placeholder">
     <p><em>Contenu à compléter</em> — cette fiche reprend la structure et le nom de
     l'espèce depuis le site d'origine (et la photo quand elle a déjà été récupérée).
     La description détaillée reste à ajouter ici.</p>
@@ -71,6 +77,21 @@ testImg.onerror = () => {
   photoEl.style.display = 'none';
 };
 testImg.src = photoUrl;
+
+// Commentaire rédigé par IA (data/commentaires.json, produit par outils/generer_commentaires.py)
+fetch('data/commentaires.json')
+  .then(r => (r.ok ? r.json() : {}))
+  .catch(() => ({}))
+  .then(d => {
+    const c = (d.commentaires || {})[slug];
+    if (!c || !c.texte) return;
+    document.getElementById('commentaire-texte').textContent = c.texte;
+    document.getElementById('commentaire-note').textContent = c.valide
+      ? 'Commentaire rédigé par IA, relu.'
+      : 'Commentaire rédigé par IA, pas encore relu : à vérifier.';
+    document.getElementById('commentaire').style.display = 'block';
+    document.getElementById('fiche-placeholder').style.display = 'none';
+  });
 
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
