@@ -1,4 +1,4 @@
-const CACHE_NAME = 'varnature-cache-v18';
+const CACHE_NAME = 'varnature-cache-v21';
 const PRECACHE_ASSETS = [
   './',
   './index.html',
