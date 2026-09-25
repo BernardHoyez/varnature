@@ -31,7 +31,10 @@
     <h1 id="fiche-title">Chargement…</h1>
   </div>
 
-  <img id="fiche-photo" class="fiche-photo" style="display:none;" alt="">
+  <div id="galerie" class="galerie" style="display:none;">
+    <img id="galerie-principale" class="galerie-principale" alt="">
+    <div id="galerie-vignettes" class="galerie-vignettes"></div>
+  </div>
 
   <section class="commentaire" id="commentaire" style="display:none;">
     <h2>Commentaire</h2>
@@ -65,18 +68,45 @@ fetch('data/' + type + '.json')
     document.title = (found ? found.name : 'Fiche') + ' — Flore et Faune du Var';
   });
 
-const photoEl = document.getElementById('fiche-photo');
-const photoUrl = 'photos/' + slug + '.jpg';
-const testImg = new Image();
-testImg.onload = () => {
-  photoEl.src = photoUrl;
-  photoEl.alt = slug;
-  photoEl.style.display = 'block';
-};
-testImg.onerror = () => {
-  photoEl.style.display = 'none';
-};
-testImg.src = photoUrl;
+// Galerie de photos (data/photos.json : { slug: nombre de photos })
+// Fichiers attendus : photos/<slug>/1.jpg, photos/<slug>/2.jpg, ...
+const galerieEl = document.getElementById('galerie');
+const principaleEl = document.getElementById('galerie-principale');
+const vignettesEl = document.getElementById('galerie-vignettes');
+
+function choisirPhoto(n, chemins) {
+  principaleEl.src = chemins[n - 1];
+  principaleEl.alt = slug + ' — photo ' + n + ' sur ' + chemins.length;
+  vignettesEl.querySelectorAll('button').forEach((b, i) => {
+    b.setAttribute('aria-current', i === n - 1 ? 'true' : 'false');
+  });
+}
+
+fetch('data/photos.json')
+  .then(r => (r.ok ? r.json() : {}))
+  .catch(() => ({}))
+  .then(manifeste => {
+    const n = manifeste[slug] || 0;
+    if (!n) return;
+    const chemins = Array.from({ length: n }, (_, i) => 'photos/' + slug + '/' + (i + 1) + '.jpg');
+    if (n > 1) {
+      chemins.forEach((chemin, i) => {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.setAttribute('aria-label', 'Photo ' + (i + 1) + ' sur ' + n);
+        b.setAttribute('aria-current', i === 0 ? 'true' : 'false');
+        const img = document.createElement('img');
+        img.src = chemin;
+        img.alt = '';
+        img.loading = 'lazy';
+        b.appendChild(img);
+        b.addEventListener('click', () => choisirPhoto(i + 1, chemins));
+        vignettesEl.appendChild(b);
+      });
+    }
+    choisirPhoto(1, chemins);
+    galerieEl.style.display = 'block';
+  });
 
 // Commentaire rédigé par IA (data/commentaires.json, produit par outils/generer_commentaires.py)
 fetch('data/commentaires.json')
