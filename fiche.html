@@ -86,14 +86,14 @@ fetch('data/photos.json')
   .then(r => (r.ok ? r.json() : {}))
   .catch(() => ({}))
   .then(manifeste => {
-    const n = manifeste[slug] || 0;
-    if (!n) return;
-    const chemins = Array.from({ length: n }, (_, i) => 'photos/' + slug + '/' + (i + 1) + '.jpg');
-    if (n > 1) {
+    const fichiers = manifeste[slug] || [];
+    if (!fichiers.length) return;
+    const chemins = fichiers.map(f => 'photos/' + slug + '/' + f);
+    if (chemins.length > 1) {
       chemins.forEach((chemin, i) => {
         const b = document.createElement('button');
         b.type = 'button';
-        b.setAttribute('aria-label', 'Photo ' + (i + 1) + ' sur ' + n);
+        b.setAttribute('aria-label', 'Photo ' + (i + 1) + ' sur ' + chemins.length);
         b.setAttribute('aria-current', i === 0 ? 'true' : 'false');
         const img = document.createElement('img');
         img.src = chemin;

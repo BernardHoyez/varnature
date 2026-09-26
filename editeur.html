@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Éditeur de fiches — Flore et Faune du Var</title>
+<link rel="icon" href="icons/icon-192.png">
+<style>
+:root {
+  --vert-fonce: #2e5339;
+  --vert: #4a7856;
+  --vert-clair: #e8f0ea;
+  --faune: #6d4e9c;
+  --faune-clair: #ece7f4;
+  --texte: #26312a;
+  --fond: #fbfaf7;
+  --accent: #b5651d;
+  --bordure: #d8ddd8;
+  --rouge: #a4372a;
+  --orange: #b5651d;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--fond); color: var(--texte); font-family: system-ui, "Segoe UI", Arial, sans-serif; }
+header.site-header { background: var(--vert-fonce); color: #fff; padding: 12px 16px; }
+header.site-header .title-row { display: flex; align-items: center; gap: 10px; max-width: 1100px; margin: 0 auto; }
+header.site-header h1 { font-size: 1.1rem; margin: 0; font-weight: 600; }
+header.site-header .sous-titre { font-size: 0.8rem; opacity: 0.85; margin: 2px 0 0; }
+header.site-header a.retour { color: #cfe3d5; font-size: 0.85rem; text-decoration: none; margin-left: auto; white-space: nowrap; }
+
+main { max-width: 1100px; margin: 0 auto; padding: 14px 12px 60px; }
+
+.notice { background: #fff8ea; border: 1px solid #e6d6a8; border-radius: 8px; padding: 10px 14px; font-size: 0.88rem; margin-bottom: 14px; line-height: 1.5; }
+.notice strong { color: var(--accent); }
+
+.barre-outils { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 10px; }
+.barre-outils input[type=search], .barre-outils select {
+  font: inherit; font-size: 0.9rem; padding: 7px 9px; border: 1px solid var(--bordure); border-radius: 6px; background: #fff;
+}
+.barre-outils input[type=search] { flex: 1 1 200px; min-width: 150px; }
+.stats { font-size: 0.82rem; color: #5a655c; margin-bottom: 10px; }
+.stats b { color: var(--texte); }
+
+.boutons-globaux { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+button.action { font: inherit; font-size: 0.85rem; padding: 8px 13px; border-radius: 6px; border: 1px solid var(--vert); background: var(--vert); color: #fff; cursor: pointer; }
+button.action.secondaire { background: #fff; color: var(--vert-fonce); }
+button.action.danger { background: #fff; color: var(--rouge); border-color: var(--rouge); }
+button.action:disabled { opacity: 0.45; cursor: default; }
+
+.zone { display: grid; grid-template-columns: 1fr; gap: 16px; }
+@media (min-width: 880px) { .zone { grid-template-columns: 340px 1fr; align-items: start; } }
+
+.liste { border: 1px solid var(--bordure); border-radius: 8px; background: #fff; max-height: 70vh; overflow-y: auto; }
+.ligne { display: flex; align-items: center; gap: 8px; padding: 8px 10px; border-bottom: 1px solid var(--bordure); cursor: pointer; font-size: 0.86rem; }
+.ligne:hover { background: var(--vert-clair); }
+.ligne.selectionnee { background: var(--vert-clair); border-left: 3px solid var(--vert-fonce); }
+.ligne .tag { flex: none; font-size: 0.65rem; font-weight: 700; padding: 2px 6px; border-radius: 4px; color: #fff; }
+.ligne .tag.flore { background: var(--vert); }
+.ligne .tag.faune { background: var(--faune); }
+.ligne .nom { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ligne .puce { flex: none; width: 9px; height: 9px; border-radius: 50%; }
+.puce.haute { background: #3d8a4e; }
+.puce.moyenne { background: var(--orange); }
+.puce.faible { background: var(--rouge); }
+.puce.aucune { background: #ccc; }
+.ligne .val { flex: none; font-size: 0.9rem; }
+.ligne .nphotos { flex: none; font-size: 0.72rem; color: #789; }
+
+.panneau { border: 1px solid var(--bordure); border-radius: 8px; background: #fff; padding: 16px; }
+.panneau .vide { color: #7a857c; font-size: 0.92rem; padding: 30px 10px; text-align: center; }
+.panneau h2 { margin: 0 0 2px; font-size: 1.2rem; color: var(--vert-fonce); }
+.panneau .latin { font-style: italic; color: #5a655c; margin: 0 0 4px; }
+.panneau .slug { font-family: monospace; font-size: 0.72rem; color: #9aa39b; margin: 0 0 12px; word-break: break-all; }
+.nav-fiche { display: flex; gap: 8px; margin-bottom: 10px; }
+.nav-fiche button { font: inherit; font-size: 0.82rem; padding: 5px 10px; border-radius: 5px; border: 1px solid var(--bordure); background: #fff; cursor: pointer; }
+.nav-fiche button:disabled { opacity: 0.4; }
+
+.champ { margin-bottom: 12px; }
+.champ label { display: block; font-size: 0.78rem; font-weight: 600; color: #4a554b; margin-bottom: 4px; }
+.champ textarea { width: 100%; font: inherit; font-size: 0.92rem; line-height: 1.5; padding: 8px; border: 1px solid var(--bordure); border-radius: 6px; resize: vertical; min-height: 130px; }
+.champ input[type=text], .champ select { width: 100%; font: inherit; font-size: 0.9rem; padding: 7px 8px; border: 1px solid var(--bordure); border-radius: 6px; }
+.compteur { font-size: 0.76rem; margin-top: 3px; color: #7a857c; }
+.compteur.ok { color: #3d8a4e; }
+.compteur.hors { color: var(--rouge); }
+.ligne-champs { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+@media (max-width: 480px) { .ligne-champs { grid-template-columns: 1fr; } }
+.case { display: flex; align-items: center; gap: 8px; font-size: 0.9rem; margin: 4px 0 16px; }
+
+.photos-titre { font-size: 0.85rem; font-weight: 600; margin: 18px 0 8px; color: var(--vert-fonce); }
+.grille-photos { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 10px; }
+.vignette { position: relative; width: 84px; }
+.vignette img { width: 84px; height: 84px; object-fit: cover; border-radius: 6px; border: 1px solid var(--bordure); display: block; background: #eee; }
+.vignette .principale-label { position: absolute; top: 3px; left: 3px; background: var(--vert-fonce); color: #fff; font-size: 0.6rem; padding: 1px 4px; border-radius: 3px; }
+.vignette .rangee-btn { display: flex; justify-content: center; gap: 3px; margin-top: 3px; }
+.vignette button { font-size: 0.68rem; padding: 2px 5px; border: 1px solid var(--bordure); background: #fff; border-radius: 4px; cursor: pointer; }
+.vignette button.supprimer { color: var(--rouge); border-color: var(--rouge); }
+.ajout-photo { display: flex; gap: 6px; align-items: center; font-size: 0.82rem; flex-wrap: wrap; }
+.ajout-photo input { font: inherit; font-size: 0.85rem; padding: 5px 7px; border: 1px solid var(--bordure); border-radius: 5px; width: 110px; }
+.ajout-photo .aide { color: #8a948b; font-size: 0.76rem; flex-basis: 100%; }
+
+.msg-enregistre { font-size: 0.76rem; color: #3d8a4e; margin-left: 6px; opacity: 0; transition: opacity 0.3s; }
+.msg-enregistre.visible { opacity: 1; }
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="title-row">
+    <div>
+      <h1>🌿 Éditeur de fiches</h1>
+      <p class="sous-titre">Flore et Faune du Var — usage personnel</p>
+    </div>
+    <a class="retour" href="index.html">← Retour au site</a>
+  </div>
+</header>
+
+<main>
+  <p class="notice">
+    Vos modifications sont enregistrées <strong>uniquement dans ce navigateur</strong> au fur et à mesure.
+    Rien n'est envoyé où que ce soit. Quand vous avez terminé une session de relecture, cliquez sur
+    <strong>« Exporter »</strong> : les fichiers téléchargés remplacent ceux du dossier <code>data/</code> de votre
+    projet ; pensez ensuite à incrémenter <code>CACHE_NAME</code> dans <code>sw.js</code> avant de pousser sur GitHub.
+  </p>
+
+  <div class="boutons-globaux">
+    <button class="action" id="btn-exporter">Exporter mes modifications</button>
+    <button class="action secondaire" id="btn-reinit">Réinitialiser (oublier mes modifications)</button>
+    <span class="msg-enregistre" id="msg-enregistre">Enregistré dans ce navigateur ✓</span>
+  </div>
+
+  <p class="stats" id="stats">Chargement…</p>
+
+  <div class="barre-outils">
+    <input type="search" id="recherche" placeholder="Rechercher (nom français ou latin)">
+    <select id="filtre">
+      <option value="toutes">Toutes les fiches</option>
+      <option value="non-validees">Non validées</option>
+      <option value="faible">Confiance faible</option>
+      <option value="moyenne">Confiance moyenne</option>
+      <option value="avec-photos">Avec photo(s)</option>
+      <option value="sans-photos">Sans photo</option>
+      <option value="modifiees">Modifiées cette session</option>
+    </select>
+    <select id="tri">
+      <option value="alpha">Tri alphabétique</option>
+      <option value="confiance">Confiance faible d'abord</option>
+    </select>
+  </div>
+
+  <div class="zone">
+    <div class="liste" id="liste"></div>
+    <div class="panneau" id="panneau"><p class="vide">Chargement des fiches…</p></div>
+  </div>
+</main>
+
+<script>
+'use strict';
+
+const CLE_COMMENTAIRES = 'vn-editeur-commentaires-v1';
+const CLE_PHOTOS = 'vn-editeur-photos-v1';
+const CIBLE_MIN = 480, CIBLE_MAX = 720;
+
+let especes = [];          // [{rub, name, fr, la, slug}]
+let commentairesOriginal = {};
+let commentaires = {};     // slug -> objet commentaire (copie de travail)
+let photosOriginal = {};
+let photos = {};           // slug -> [noms de fichiers] (copie de travail)
+let touchees = new Set();  // slugs modifiés cette session (texte ou photo)
+let photosModifiees = false;
+
+let listeFiltree = [];
+let indexCourant = -1;
+let slugSelectionne = null;
+
+function separer(nom) {
+  const m = nom.match(/^(.*?)\s*\(\s*([^()]*?)\s*\)?\s*$/);
+  if (!m) return [nom.trim(), ''];
+  return [m[1].trim(), m[2].trim()];
+}
+
+async function charger() {
+  const [flore, faune, commData, photoData] = await Promise.all([
+    fetch('data/flore.json').then(r => r.json()),
+    fetch('data/faune.json').then(r => r.json()),
+    fetch('data/commentaires.json').then(r => r.json()).catch(() => ({ commentaires: {} })),
+    fetch('data/photos.json').then(r => r.json()).catch(() => ({})),
+  ]);
+
+  especes = [
+    ...flore.map(e => ({ rub: 'flore', ...e })),
+    ...faune.map(e => ({ rub: 'faune', ...e })),
+  ].map(e => {
+    const [fr, la] = separer(e.name);
+    return { ...e, fr, la };
+  });
+
+  commentairesOriginal = commData.commentaires || {};
+  photosOriginal = photoData || {};
+
+  const localComm = localStorage.getItem(CLE_COMMENTAIRES);
+  const localPhotos = localStorage.getItem(CLE_PHOTOS);
+  commentaires = localComm ? JSON.parse(localComm) : JSON.parse(JSON.stringify(commentairesOriginal));
+  photos = localPhotos ? JSON.parse(localPhotos) : JSON.parse(JSON.stringify(photosOriginal));
+
+  // recalcule "touchées" par comparaison au jeu d'origine (pour l'affichage au chargement)
+  for (const slug of Object.keys(commentaires)) {
+    if (JSON.stringify(commentaires[slug]) !== JSON.stringify(commentairesOriginal[slug])) touchees.add(slug);
+  }
+  for (const slug of Object.keys(photos)) {
+    if (JSON.stringify(photos[slug] || []) !== JSON.stringify(photosOriginal[slug] || [])) { touchees.add(slug); photosModifiees = true; }
+  }
+
+  document.getElementById('recherche').addEventListener('input', rafraichirListe);
+  document.getElementById('filtre').addEventListener('change', rafraichirListe);
+  document.getElementById('tri').addEventListener('change', rafraichirListe);
+  document.getElementById('btn-exporter').addEventListener('click', exporter);
+  document.getElementById('btn-reinit').addEventListener('click', reinitialiser);
+
+  rafraichirListe();
+  majStats();
+}
+
+function normaliser(s) {
+  return s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+}
+
+function confianceDe(slug) {
+  const c = commentaires[slug];
+  return c && c.texte ? (c.confiance || 'moyenne') : null;
+}
+
+function estValidee(slug) {
+  return !!(commentaires[slug] && commentaires[slug].valide);
+}
+
+function nbPhotos(slug) {
+  return (photos[slug] || []).length;
+}
+
+function rafraichirListe() {
+  const q = normaliser(document.getElementById('recherche').value.trim());
+  const filtre = document.getElementById('filtre').value;
+  const tri = document.getElementById('tri').value;
+
+  listeFiltree = especes.filter(e => {
+    if (q) {
+      const hay = normaliser(e.fr + ' ' + e.la);
+      if (!hay.includes(q)) return false;
+    }
+    const conf = confianceDe(e.slug);
+    const val = estValidee(e.slug);
+    const n = nbPhotos(e.slug);
+    switch (filtre) {
+      case 'non-validees': return !val;
+      case 'faible': return conf === 'faible';
+      case 'moyenne': return conf === 'moyenne';
+      case 'avec-photos': return n > 0;
+      case 'sans-photos': return n === 0;
+      case 'modifiees': return touchees.has(e.slug);
+      default: return true;
+    }
+  });
+
+  const ordreConf = { faible: 0, moyenne: 1, haute: 2, null: -1 };
+  if (tri === 'confiance') {
+    listeFiltree.sort((a, b) => {
+      const d = (ordreConf[confianceDe(a.slug)] ?? -1) - (ordreConf[confianceDe(b.slug)] ?? -1);
+      return d !== 0 ? d : a.fr.localeCompare(b.fr, 'fr');
+    });
+  } else {
+    listeFiltree.sort((a, b) => (a.rub !== b.rub ? (a.rub === 'flore' ? -1 : 1) : a.fr.localeCompare(b.fr, 'fr')));
+  }
+
+  dessinerListe();
+}
+
+function dessinerListe() {
+  const conteneur = document.getElementById('liste');
+  if (!listeFiltree.length) {
+    conteneur.innerHTML = '<p class="vide" style="padding:16px;">Aucune fiche ne correspond.</p>';
+    return;
+  }
+  conteneur.innerHTML = listeFiltree.map(e => {
+    const conf = confianceDe(e.slug) || 'aucune';
+    const val = estValidee(e.slug) ? '✓' : '';
+    const n = nbPhotos(e.slug);
+    return `<div class="ligne${e.slug === slugSelectionne ? ' selectionnee' : ''}" data-slug="${e.slug}">
+      <span class="tag ${e.rub}">${e.rub === 'flore' ? 'F' : 'A'}</span>
+      <span class="puce ${conf}"></span>
+      <span class="nom">${e.fr || e.la}</span>
+      <span class="val">${val}</span>
+      <span class="nphotos">${n ? '📷' + n : ''}</span>
+    </div>`;
+  }).join('');
+  conteneur.querySelectorAll('.ligne').forEach(el => {
+    el.addEventListener('click', () => selectionner(el.dataset.slug));
+  });
+}
+
+function selectionner(slug) {
+  slugSelectionne = slug;
+  indexCourant = listeFiltree.findIndex(e => e.slug === slug);
+  dessinerListe();
+  dessinerPanneau();
+  document.querySelector(`.ligne[data-slug="${CSS.escape(slug)}"]`)?.scrollIntoView({ block: 'nearest' });
+}
+
+function especePar(slug) {
+  return especes.find(e => e.slug === slug);
+}
+
+function assurerCommentaire(slug) {
+  if (!commentaires[slug]) {
+    commentaires[slug] = { texte: '', confiance: 'moyenne', a_verifier: '', nom_corrige: '', longueur: 0, hors_cible: true, modele: 'manuel', date: '', groupe: slug, valide: false, modifie: true };
+  }
+  return commentaires[slug];
+}
+
+function dessinerPanneau() {
+  const e = especePar(slugSelectionne);
+  const panneau = document.getElementById('panneau');
+  if (!e) { panneau.innerHTML = '<p class="vide">Sélectionnez une fiche dans la liste.</p>'; return; }
+  const c = assurerCommentaire(slugSelectionne);
+  const liste_photos = photos[slugSelectionne] || [];
+
+  panneau.innerHTML = `
+    <div class="nav-fiche">
+      <button id="btn-prec" ${indexCourant <= 0 ? 'disabled' : ''}>&larr; Précédente</button>
+      <button id="btn-suiv" ${indexCourant >= listeFiltree.length - 1 ? 'disabled' : ''}>Suivante &rarr;</button>
+    </div>
+    <h2>${e.fr || e.la}</h2>
+    ${e.la ? `<p class="latin">${e.la}</p>` : ''}
+    <p class="slug">${e.rub} / ${e.slug}</p>
+
+    <div class="champ">
+      <label for="f-texte">Commentaire</label>
+      <textarea id="f-texte">${escHtml(c.texte)}</textarea>
+      <div class="compteur" id="f-compteur"></div>
+    </div>
+
+    <div class="ligne-champs">
+      <div class="champ">
+        <label for="f-confiance">Confiance</label>
+        <select id="f-confiance">
+          <option value="haute">haute</option>
+          <option value="moyenne">moyenne</option>
+          <option value="faible">faible</option>
+        </select>
+      </div>
+      <div class="champ">
+        <label for="f-nom-corrige">Nom latin corrigé (si besoin)</label>
+        <input type="text" id="f-nom-corrige" value="${escAttr(c.nom_corrige || '')}">
+      </div>
+    </div>
+
+    <div class="champ">
+      <label for="f-a-verifier">À vérifier</label>
+      <input type="text" id="f-a-verifier" value="${escAttr(c.a_verifier || '')}">
+    </div>
+
+    <label class="case"><input type="checkbox" id="f-valide" ${c.valide ? 'checked' : ''}> Relu et validé</label>
+
+    <p class="photos-titre">Photos (${liste_photos.length})</p>
+    <div class="grille-photos" id="grille-photos"></div>
+    <div class="ajout-photo">
+      <input type="text" id="f-ajout-photo" placeholder="ex. 9.jpg">
+      <button class="action secondaire" id="btn-ajouter-photo" type="button">Ajouter</button>
+      <span class="aide">Le fichier doit déjà exister dans photos/${e.slug}/ (déposé manuellement).</span>
+    </div>
+  `;
+
+  document.getElementById('f-texte').value = c.texte; // évite les soucis d'échappement
+  majCompteur();
+  document.getElementById('f-confiance').value = c.confiance || 'moyenne';
+
+  document.getElementById('btn-prec').addEventListener('click', () => allerVers(indexCourant - 1));
+  document.getElementById('btn-suiv').addEventListener('click', () => allerVers(indexCourant + 1));
+  document.getElementById('f-texte').addEventListener('input', () => { majCompteur(); enregistrerChamp(); });
+  document.getElementById('f-confiance').addEventListener('change', enregistrerChamp);
+  document.getElementById('f-nom-corrige').addEventListener('input', enregistrerChamp);
+  document.getElementById('f-a-verifier').addEventListener('input', enregistrerChamp);
+  document.getElementById('f-valide').addEventListener('change', enregistrerChamp);
+  document.getElementById('btn-ajouter-photo').addEventListener('click', ajouterPhoto);
+
+  dessinerPhotos();
+}
+
+function allerVers(i) {
+  if (i < 0 || i >= listeFiltree.length) return;
+  selectionner(listeFiltree[i].slug);
+}
+
+function majCompteur() {
+  const n = document.getElementById('f-texte').value.length;
+  const el = document.getElementById('f-compteur');
+  el.textContent = n + ' caractères (cible 480–720)';
+  el.className = 'compteur ' + (n >= CIBLE_MIN && n <= CIBLE_MAX ? 'ok' : 'hors');
+}
+
+function enregistrerChamp() {
+  const slug = slugSelectionne;
+  const c = assurerCommentaire(slug);
+  const texte = document.getElementById('f-texte').value;
+  c.texte = texte;
+  c.longueur = texte.length;
+  c.hors_cible = !(texte.length >= CIBLE_MIN && texte.length <= CIBLE_MAX);
+  c.confiance = document.getElementById('f-confiance').value;
+  c.nom_corrige = document.getElementById('f-nom-corrige').value;
+  c.a_verifier = document.getElementById('f-a-verifier').value;
+  c.valide = document.getElementById('f-valide').checked;
+  c.modifie = true;
+  touchees.add(slug);
+  sauvegarderLocal();
+  // rafraîchit juste la ligne concernée dans la liste, sans tout redessiner
+  const ligne = document.querySelector(`.ligne[data-slug="${CSS.escape(slug)}"]`);
+  if (ligne) {
+    ligne.querySelector('.puce').className = 'puce ' + (c.texte ? c.confiance : 'aucune');
+    ligne.querySelector('.val').textContent = c.valide ? '✓' : '';
+  }
+  majStats();
+}
+
+function dessinerPhotos() {
+  const slug = slugSelectionne;
+  const liste = photos[slug] || [];
+  const grille = document.getElementById('grille-photos');
+  if (!liste.length) {
+    grille.innerHTML = '<p class="vide" style="padding:6px 0;">Aucune photo pour cette fiche.</p>';
+    return;
+  }
+  grille.innerHTML = liste.map((f, i) => `
+    <div class="vignette">
+      ${i === 0 ? '<span class="principale-label">principale</span>' : ''}
+      <img src="photos/${slug}/${f}" alt="" loading="lazy">
+      <div class="rangee-btn">
+        <button data-action="haut" data-i="${i}" ${i === 0 ? 'disabled' : ''}>▲</button>
+        <button data-action="bas" data-i="${i}" ${i === liste.length - 1 ? 'disabled' : ''}>▼</button>
+        <button data-action="suppr" data-i="${i}" class="supprimer">×</button>
+      </div>
+    </div>
+  `).join('');
+  grille.querySelectorAll('button').forEach(b => {
+    b.addEventListener('click', () => actionPhoto(b.dataset.action, parseInt(b.dataset.i, 10)));
+  });
+}
+
+function actionPhoto(action, i) {
+  const slug = slugSelectionne;
+  const liste = photos[slug] || [];
+  if (action === 'haut' && i > 0) [liste[i - 1], liste[i]] = [liste[i], liste[i - 1]];
+  if (action === 'bas' && i < liste.length - 1) [liste[i + 1], liste[i]] = [liste[i], liste[i + 1]];
+  if (action === 'suppr') liste.splice(i, 1);
+  photos[slug] = liste;
+  photosModifiees = true;
+  touchees.add(slug);
+  sauvegarderLocal();
+  dessinerPhotos();
+  document.querySelector(`.ligne[data-slug="${CSS.escape(slug)}"] .nphotos`).textContent = liste.length ? '📷' + liste.length : '';
+  document.querySelector('.photos-titre').textContent = `Photos (${liste.length})`;
+  majStats();
+}
+
+function ajouterPhoto() {
+  const slug = slugSelectionne;
+  const champ = document.getElementById('f-ajout-photo');
+  const nom = champ.value.trim();
+  if (!nom) return;
+  if (!photos[slug]) photos[slug] = [];
+  photos[slug].push(nom);
+  photosModifiees = true;
+  touchees.add(slug);
+  champ.value = '';
+  sauvegarderLocal();
+  dessinerPhotos();
+  document.querySelector('.photos-titre').textContent = `Photos (${photos[slug].length})`;
+  document.querySelector(`.ligne[data-slug="${CSS.escape(slug)}"] .nphotos`).textContent = '📷' + photos[slug].length;
+}
+
+let minuteurSauvegarde = null;
+function sauvegarderLocal() {
+  localStorage.setItem(CLE_COMMENTAIRES, JSON.stringify(commentaires));
+  localStorage.setItem(CLE_PHOTOS, JSON.stringify(photos));
+  const msg = document.getElementById('msg-enregistre');
+  msg.classList.add('visible');
+  clearTimeout(minuteurSauvegarde);
+  minuteurSauvegarde = setTimeout(() => msg.classList.remove('visible'), 1200);
+}
+
+function majStats() {
+  const total = especes.length;
+  const validees = especes.filter(e => estValidee(e.slug)).length;
+  document.getElementById('stats').innerHTML =
+    `<b>${total}</b> fiches · <b>${validees}</b> validées · <b>${touchees.size}</b> modifiée(s) cette session`;
+}
+
+function escHtml(s) {
+  return String(s || '').replace(/[&<>]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]));
+}
+function escAttr(s) {
+  return escHtml(s).replace(/"/g, '&quot;');
+}
+
+function telecharger(nomFichier, contenu) {
+  const blob = new Blob([contenu], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = nomFichier;
+  document.body.appendChild(a); a.click(); a.remove();
+  URL.revokeObjectURL(url);
+}
+
+function exporter() {
+  const maintenant = new Date().toISOString();
+  const sortie = {
+    meta: {
+      avertissement: 'Commentaires rédigés par IA (Claude), relus et complétés via l\'éditeur. Chaque entrée porte « valide: true » une fois relue.',
+      mis_a_jour: maintenant,
+      total: Object.keys(commentaires).length,
+      valides: Object.values(commentaires).filter(c => c.valide).length,
+    },
+    commentaires,
+  };
+  telecharger('commentaires.json', JSON.stringify(sortie, null, 1));
+  if (photosModifiees) {
+    telecharger('photos.json', JSON.stringify(photos, null, 0));
+  }
+}
+
+function reinitialiser() {
+  if (!confirm('Oublier toutes les modifications non exportées de ce navigateur ? Cette action est irréversible.')) return;
+  localStorage.removeItem(CLE_COMMENTAIRES);
+  localStorage.removeItem(CLE_PHOTOS);
+  location.reload();
+}
+
+charger();
+</script>
+</body>
+</html>
